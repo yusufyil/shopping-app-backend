@@ -24,7 +24,7 @@ public class Comment extends AbstractEntity implements Serializable {
 
     @Min(0)
     @Max(10)
-    double rating;
+    int rating;
 
     @ManyToOne
     @JoinColumn(

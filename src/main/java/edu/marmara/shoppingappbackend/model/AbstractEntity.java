@@ -1,8 +1,8 @@
 package edu.marmara.shoppingappbackend.model;
 
-import edu.marmara.shoppingappbackend.Status;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
+import edu.marmara.shoppingappbackend.enums.Status;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.OffsetDateTime;
@@ -16,11 +16,11 @@ public abstract class AbstractEntity {
     @Column(nullable = false)
     Long id;
 
-    @CreatedDate
+    @CreationTimestamp
     @Column(nullable = false, updatable = false)
     OffsetDateTime createdAt;
 
-    @LastModifiedDate
+    @UpdateTimestamp
     @Column(nullable = false)
     OffsetDateTime updatedAt;
 

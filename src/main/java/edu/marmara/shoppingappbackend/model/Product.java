@@ -1,5 +1,6 @@
 package edu.marmara.shoppingappbackend.model;
 
+import edu.marmara.shoppingappbackend.enums.Status;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -35,6 +36,9 @@ public class Product extends AbstractEntity implements Serializable {
     @Min(0)
     @Max(10)
     double averageRating;
+
+    @Enumerated(EnumType.STRING)
+    Status status;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     List<Comment> comments = new ArrayList<>();

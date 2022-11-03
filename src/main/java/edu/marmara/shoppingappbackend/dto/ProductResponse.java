@@ -1,6 +1,6 @@
 package edu.marmara.shoppingappbackend.dto;
 
-import edu.marmara.shoppingappbackend.Status;
+import edu.marmara.shoppingappbackend.enums.Status;
 import edu.marmara.shoppingappbackend.model.Comment;
 import edu.marmara.shoppingappbackend.model.Customer;
 import lombok.AllArgsConstructor;
@@ -17,12 +17,12 @@ import java.util.List;
 public class ProductResponse {
 
     Long id;
-    Status status;
     String name;
     String description;
     double price;
     int quantity;
     double averageRating;
+    Status status;
     List<Comment> comments;
     Customer customer;
 }

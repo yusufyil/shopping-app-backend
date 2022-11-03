@@ -43,4 +43,7 @@ public class Customer extends AbstractEntity {
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     List<Comment> commentList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, orphanRemoval = true)
+    List<OrderDetails> orderDetails;
 }
