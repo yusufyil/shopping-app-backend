@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
 import java.util.List;
 
 @Data
@@ -17,10 +18,12 @@ import java.util.List;
 public class ProductResponse {
 
     Long id;
-    String name;
+    String brand;
+    String model;
+    String shortDescription;
     String description;
     double price;
-    int quantity;
+    int stockQuantity;
     double averageRating;
     Status status;
     List<Comment> comments;

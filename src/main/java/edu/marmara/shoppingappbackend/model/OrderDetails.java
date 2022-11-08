@@ -3,6 +3,7 @@ package edu.marmara.shoppingappbackend.model;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
@@ -19,12 +20,10 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class OrderDetails extends AbstractEntity implements Serializable {
 
-    String testString;
-
     @ManyToOne
     Customer customer;
 
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     List<Product> orderedProducts = new ArrayList<>();
 
     double totalPrice;
