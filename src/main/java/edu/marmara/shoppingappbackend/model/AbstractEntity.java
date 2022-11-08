@@ -1,12 +1,19 @@
 package edu.marmara.shoppingappbackend.model;
 
 import edu.marmara.shoppingappbackend.enums.Status;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.OffsetDateTime;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @MappedSuperclass
 public abstract class AbstractEntity {
 

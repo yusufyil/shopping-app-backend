@@ -20,10 +20,4 @@ public class Category extends AbstractEntity implements Serializable {
 
     String categoryName;
 
-    @ManyToOne
-    Category parentCategory;
-
-    @OneToMany(mappedBy = "parentCategory", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    List<Category> subCategories;
 }

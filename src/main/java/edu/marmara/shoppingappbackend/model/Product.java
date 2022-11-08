@@ -22,7 +22,13 @@ public class Product extends AbstractEntity implements Serializable {
 
 
     @Column(nullable = false)
-    String name;
+    String brand;
+
+    @Column(nullable = false)
+    String model;
+
+    @Column(nullable = false)
+    String shortDescription;
 
     @Column(nullable = false, length = 512)
     String description;
@@ -31,7 +37,7 @@ public class Product extends AbstractEntity implements Serializable {
     double price;
 
     @Min(0)
-    int quantity;
+    int stockQuantity;
 
     @Min(0)
     @Max(10)
