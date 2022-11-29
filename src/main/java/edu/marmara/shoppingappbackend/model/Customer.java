@@ -42,5 +42,5 @@ public class Customer extends AbstractEntity {
     List<Comment> commentList = new ArrayList<>();
 
     @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, orphanRemoval = true)
-    List<OrderDetails> orderDetails;
+    List<OrderList> orderDetails;
 }

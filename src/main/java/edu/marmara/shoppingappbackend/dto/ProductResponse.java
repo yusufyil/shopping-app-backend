@@ -25,6 +25,7 @@ public class ProductResponse {
     double price;
     int stockQuantity;
     double averageRating;
+    String imageUuid;
     Status status;
     List<Comment> comments;
     Customer customer;

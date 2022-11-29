@@ -43,6 +43,8 @@ public class Product extends AbstractEntity implements Serializable {
     @Max(10)
     double averageRating;
 
+    String imageUuid;
+
     @Enumerated(EnumType.STRING)
     Status status;
 
