@@ -18,7 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class OrderDetails extends AbstractEntity implements Serializable {
+public class OrderList extends AbstractEntity implements Serializable {
 
     @ManyToOne
     Customer customer;

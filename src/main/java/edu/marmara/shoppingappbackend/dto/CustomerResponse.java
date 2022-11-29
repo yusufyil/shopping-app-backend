@@ -2,7 +2,7 @@ package edu.marmara.shoppingappbackend.dto;
 
 import edu.marmara.shoppingappbackend.enums.Status;
 import edu.marmara.shoppingappbackend.model.Comment;
-import edu.marmara.shoppingappbackend.model.OrderDetails;
+import edu.marmara.shoppingappbackend.model.OrderList;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,5 +24,5 @@ public class CustomerResponse {
     double budget;
     Status status;
     List<Comment> commentList;
-    List<OrderDetails> orderDetails;
+    List<OrderList> orderDetails;
 }

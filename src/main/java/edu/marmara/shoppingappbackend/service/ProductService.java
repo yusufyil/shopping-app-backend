@@ -63,4 +63,14 @@ public class ProductService {
         return null;
     }
 
+    public ProductResponse addPictureToProduct(Long productId, String imageUuid) {
+        if(productRepository.existsById(productId)){
+            Product product = productRepository.findById(productId).get();
+            product.setImageUuid(imageUuid);
+            Product savedProduct = productRepository.save(product);
+            return MappingHelper.map(savedProduct, ProductResponse.class);
+        }else {
+            throw new NoSuchElementException("No such element with given id: " + productId);
+        }
+    }
 }
