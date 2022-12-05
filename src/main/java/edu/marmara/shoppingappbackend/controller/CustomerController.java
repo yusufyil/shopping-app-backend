@@ -1,8 +1,7 @@
 package edu.marmara.shoppingappbackend.controller;
 
 
-import edu.marmara.shoppingappbackend.dto.CustomerRequest;
-import edu.marmara.shoppingappbackend.dto.CustomerResponse;
+import edu.marmara.shoppingappbackend.dto.*;
 import edu.marmara.shoppingappbackend.service.CustomerService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.ResponseEntity;
@@ -44,5 +43,19 @@ public class CustomerController {
     public ResponseEntity<CustomerResponse> deleteCustomer(@PathVariable Long customerId) {
         CustomerResponse customerResponse = customerService.softDeleteCustomer(customerId);
         return ResponseEntity.ok(customerResponse);
+    }
+
+    @Operation(summary = "this endpoint creates a new comment for product with given product id given customer id.")
+    @PostMapping(path = "/{customerId}/comment/{productId}")
+    public ResponseEntity<CustomerResponse> createComment(@PathVariable Long customerId, @PathVariable Long productId, @RequestBody CommentRequest commentRequest) {
+        CustomerResponse customerResponse = customerService.createComment(customerId, productId, commentRequest);
+        return ResponseEntity.ok(customerResponse);
+    }
+
+    @Operation(summary = "this endpoint creates new order for customer with given id.")
+    @PostMapping(path = "/{customerId}/purchase")
+    public ResponseEntity<PurchaseResponse> createPurchase(@PathVariable Long customerId, @RequestBody PurchaseRequest purchaseRequest) {
+        PurchaseResponse purchaseResponse = customerService.createPurchase(customerId, purchaseRequest);
+        return ResponseEntity.ok(purchaseResponse);
     }
 }

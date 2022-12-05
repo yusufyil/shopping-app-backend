@@ -6,17 +6,16 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CustomerResponse {
+public class PurchaseRequest {
 
-    Long id;
-    String name;
-    String surname;
-    String email;
-    String phoneNumber;
-    double budget;
+    Long customerId;
+    List<OrderRequest> orderedProducts;
+    double totalPrice;
     Status status;
 }

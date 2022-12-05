@@ -3,37 +3,23 @@ package edu.marmara.shoppingappbackend.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Table(name = "comment_table")
+@Table(name = "purchase_table")
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Comment extends AbstractEntity implements Serializable {
-
-    String header;
-
-    @Column(length = 512)
-    String content;
-
-    @Min(0)
-    @Max(10)
-    int rating;
-
-    @ManyToOne
-    @JoinColumn(name = "PRODUCT_ID")
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
-    @JsonIgnore
-    Product product;
+public class Purchase extends AbstractEntity implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "CUSTOMER_ID")
@@ -41,4 +27,11 @@ public class Comment extends AbstractEntity implements Serializable {
     @EqualsAndHashCode.Exclude
     @JsonIgnore
     Customer customer;
+
+    @OneToMany(mappedBy = "purchase", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    List<Order> orderedProducts = new ArrayList<>();
+
+    double totalPrice;
+
 }

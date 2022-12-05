@@ -5,40 +5,32 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import java.io.Serializable;
 
 @Entity
-@Table(name = "comment_table")
+@Table(name = "order_table")
 @Data
 @Builder
+@Embeddable
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Comment extends AbstractEntity implements Serializable {
+public class Order extends AbstractEntity{
 
-    String header;
-
-    @Column(length = 512)
-    String content;
-
-    @Min(0)
-    @Max(10)
-    int rating;
-
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "PRODUCT_ID")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @JsonIgnore
     Product product;
 
+    int quantity;
+
+    double unitPrice;
+
     @ManyToOne
-    @JoinColumn(name = "CUSTOMER_ID")
+    @JoinColumn(name = "PURCHASE_ID")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @JsonIgnore
-    Customer customer;
+    Purchase purchase;
 }
