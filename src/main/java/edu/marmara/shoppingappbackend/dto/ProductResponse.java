@@ -1,6 +1,7 @@
 package edu.marmara.shoppingappbackend.dto;
 
 import edu.marmara.shoppingappbackend.enums.Status;
+import edu.marmara.shoppingappbackend.model.Category;
 import edu.marmara.shoppingappbackend.model.Comment;
 import edu.marmara.shoppingappbackend.model.Customer;
 import lombok.AllArgsConstructor;
@@ -26,7 +27,7 @@ public class ProductResponse {
     int stockQuantity;
     double averageRating;
     String imageUuid;
+    Category category;
+    //List<Comment> comments;
     Status status;
-    List<Comment> comments;
-    Customer customer;
 }

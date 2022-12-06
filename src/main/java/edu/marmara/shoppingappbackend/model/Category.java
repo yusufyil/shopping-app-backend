@@ -2,14 +2,14 @@ package edu.marmara.shoppingappbackend.model;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(name = "category_table")
 @Data
 @Builder
 @NoArgsConstructor
@@ -19,5 +19,8 @@ import java.util.List;
 public class Category extends AbstractEntity implements Serializable {
 
     String categoryName;
+
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    List<Product> products = new ArrayList<>();
 
 }

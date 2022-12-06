@@ -1,6 +1,6 @@
 package edu.marmara.shoppingappbackend.model;
 
-import edu.marmara.shoppingappbackend.enums.Status;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(name = "product_table")
 @Data
 @Builder
 @NoArgsConstructor
@@ -45,17 +46,14 @@ public class Product extends AbstractEntity implements Serializable {
 
     String imageUuid;
 
-    @Enumerated(EnumType.STRING)
-    Status status;
-
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     List<Comment> comments = new ArrayList<>();
 
     @ManyToOne
-    @JoinColumn(
-            name = "product_customer_fk",
-            foreignKey = @ForeignKey(name = "product_customer_fk")
-    )
-    Customer customer;
+    @JoinColumn(name = "CATEGORY_ID")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @JsonIgnore
+    Category category;
 
 }

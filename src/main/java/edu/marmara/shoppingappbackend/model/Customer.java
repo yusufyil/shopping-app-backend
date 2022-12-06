@@ -3,10 +3,7 @@ package edu.marmara.shoppingappbackend.model;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -14,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(name = "customer_table")
 @Data
 @Builder
 @NoArgsConstructor
@@ -39,8 +37,12 @@ public class Customer extends AbstractEntity {
     double budget;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     List<Comment> commentList = new ArrayList<>();
 
     @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, orphanRemoval = true)
-    List<OrderList> orderDetails;
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    List<Purchase> orderList = new ArrayList<>();
 }

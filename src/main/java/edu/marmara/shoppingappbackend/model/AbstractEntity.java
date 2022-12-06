@@ -2,7 +2,6 @@ package edu.marmara.shoppingappbackend.model;
 
 import edu.marmara.shoppingappbackend.enums.Status;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
