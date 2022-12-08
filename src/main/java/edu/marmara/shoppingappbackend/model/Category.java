@@ -20,7 +20,9 @@ public class Category extends AbstractEntity implements Serializable {
 
     String categoryName;
 
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    String imageUuid;
+
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
     List<Product> products = new ArrayList<>();
 
 }

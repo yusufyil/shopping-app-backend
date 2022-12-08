@@ -1,8 +1,6 @@
 package edu.marmara.shoppingappbackend.dto;
 
 import edu.marmara.shoppingappbackend.enums.Status;
-import edu.marmara.shoppingappbackend.model.Customer;
-import edu.marmara.shoppingappbackend.model.Order;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,8 +15,8 @@ import java.util.List;
 public class PurchaseResponse {
 
     Long id;
-    Customer customer;
-    List<Order> orderedProducts;
+    Long customerId;
+    List<OrderResponse> orderedProducts;
     double totalPrice;
     Status status;
 }

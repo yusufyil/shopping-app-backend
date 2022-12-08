@@ -7,6 +7,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/v1/customer")
 public class CustomerController {
@@ -29,6 +31,13 @@ public class CustomerController {
     public ResponseEntity<CustomerResponse> getCustomer(@PathVariable Long customerId) {
         CustomerResponse customerResponse = customerService.getCustomer(customerId);
         return ResponseEntity.ok(customerResponse);
+    }
+
+    @Operation(summary = "this endpoint returns all customers.")
+    @GetMapping
+    public ResponseEntity<List<CustomerResponse>> getAllCustomers() {
+        List<CustomerResponse> allCustomers = customerService.getAllCustomers();
+        return ResponseEntity.ok(allCustomers);
     }
 
     @Operation(summary = "this endpoint receives an id with request body and updates customer.")
@@ -57,5 +66,12 @@ public class CustomerController {
     public ResponseEntity<PurchaseResponse> createPurchase(@PathVariable Long customerId, @RequestBody PurchaseRequest purchaseRequest) {
         PurchaseResponse purchaseResponse = customerService.createPurchase(customerId, purchaseRequest);
         return ResponseEntity.ok(purchaseResponse);
+    }
+
+    @Operation(summary = "this endpoint returns all purchases for customer with given id.")
+    @GetMapping(path = "/{customerId}/purchase")
+    public ResponseEntity<List<PurchaseResponse>> getAllPurchases(@PathVariable Long customerId) {
+        List<PurchaseResponse> purchaseResponses = customerService.getAllPurchases(customerId);
+        return ResponseEntity.ok(purchaseResponses);
     }
 }

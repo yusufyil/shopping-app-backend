@@ -31,6 +31,13 @@ public class CategoryController {
         return ResponseEntity.ok(categoryResponse);
     }
 
+    @Operation(summary = "this endpoint returns all categories.")
+    @GetMapping
+    public ResponseEntity<CategoryResponse> getAllCategories() {
+        CategoryResponse categoryResponse = categoryService.getAllCategories();
+        return ResponseEntity.ok(categoryResponse);
+    }
+
     @Operation(summary = "this endpoint updates comment for given category request.")
     @PutMapping(path = "/{categoryId}")
     public ResponseEntity<CategoryResponse> updateCategory(@PathVariable Long categoryId, @RequestBody CategoryRequest categoryRequest) {
@@ -42,6 +49,13 @@ public class CategoryController {
     @DeleteMapping(path = "/{categoryId}")
     public ResponseEntity<CategoryResponse> deleteCategory(@PathVariable Long categoryId) {
         CategoryResponse categoryResponse = categoryService.softDeleteCategory(categoryId);
+        return ResponseEntity.ok(categoryResponse);
+    }
+
+    @Operation(summary = "this endpoint adds a picture to given category.")
+    @PatchMapping(path = "/{categoryId}/picture/{imageUuid}")
+    public ResponseEntity<CategoryResponse> addPictureToCategory(@PathVariable Long categoryId, @PathVariable String imageUuid) {
+        CategoryResponse categoryResponse = categoryService.addPictureToCategory(categoryId, imageUuid);
         return ResponseEntity.ok(categoryResponse);
     }
 }

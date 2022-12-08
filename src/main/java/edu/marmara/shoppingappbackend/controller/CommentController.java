@@ -7,6 +7,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/v1/comment")
 public class CommentController {
@@ -43,5 +45,19 @@ public class CommentController {
     public ResponseEntity<CommentResponse> deleteComment(@PathVariable Long commentId) {
         CommentResponse commentResponse = commentService.softDeleteComment(commentId);
         return ResponseEntity.ok(commentResponse);
+    }
+
+    @Operation(summary = "this endpoint returns all comments for given product id")
+    @GetMapping(path = "/product/{productId}")
+    public ResponseEntity<List<CommentResponse>> getAllCommentsByProductId(@PathVariable Long productId) {
+        List<CommentResponse> commentResponses = commentService.getAllCommentsByProductId(productId);
+        return ResponseEntity.ok(commentResponses);
+    }
+
+    @Operation(summary = "this endpoint returns all comments for given customer id")
+    @GetMapping(path = "/customer/{customerId}")
+    public ResponseEntity<List<CommentResponse>> getAllCommentsByCustomerId(@PathVariable Long customerId) {
+        List<CommentResponse> commentResponses = commentService.getAllCommentsByCustomerId(customerId);
+        return ResponseEntity.ok(commentResponses);
     }
 }
