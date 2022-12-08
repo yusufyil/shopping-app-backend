@@ -39,7 +39,7 @@ public class PurchaseService {
         purchaseRepository.deleteById(id);
     }
 
-    public List<PurchaseResponse> getAllPurchases(){
+    public List<PurchaseResponse> getAllPurchases() {
         List<Purchase> purchases = purchaseRepository.findAll();
         return MappingHelper.mapList(purchases, PurchaseResponse.class);
     }

@@ -16,6 +16,6 @@ public class PurchaseRequest {
 
     Long customerId;
     List<OrderRequest> orderedProducts;
-    double totalPrice;
+    //double totalPrice;
     Status status;
 }

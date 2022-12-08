@@ -32,13 +32,11 @@ public class Comment extends AbstractEntity implements Serializable {
     @JoinColumn(name = "PRODUCT_ID")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @JsonIgnore
     Product product;
 
     @ManyToOne
     @JoinColumn(name = "CUSTOMER_ID")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @JsonIgnore
     Customer customer;
 }

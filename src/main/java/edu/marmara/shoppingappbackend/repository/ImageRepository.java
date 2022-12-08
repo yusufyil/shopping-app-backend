@@ -11,4 +11,6 @@ public interface ImageRepository extends JpaRepository<Image, Long> {
 
     Optional<Image> findByUuid(String uuid);
 
+    boolean existsByUuid(String uuid);
+
 }

@@ -8,6 +8,7 @@ import edu.marmara.shoppingappbackend.repository.CommentRepository;
 import edu.marmara.shoppingappbackend.util.MappingHelper;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
@@ -59,5 +60,15 @@ public class CommentService {
         } else {
             throw new NoSuchElementException("No such element with given id: " + commentId);
         }
+    }
+
+    public List<CommentResponse> getAllCommentsByProductId(Long productId) {
+        List<Comment> allByProductId = commentRepository.findAllByProductId(productId);
+        return MappingHelper.mapList(allByProductId, CommentResponse.class);
+    }
+
+    public List<CommentResponse> getAllCommentsByCustomerId(Long customerId) {
+        List<Comment> allByCustomerId = commentRepository.findAllByCustomerId(customerId);
+        return MappingHelper.mapList(allByCustomerId, CommentResponse.class);
     }
 }

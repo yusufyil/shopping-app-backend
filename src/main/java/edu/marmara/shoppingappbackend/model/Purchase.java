@@ -1,6 +1,5 @@
 package edu.marmara.shoppingappbackend.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.OnDelete;
@@ -25,10 +24,9 @@ public class Purchase extends AbstractEntity implements Serializable {
     @JoinColumn(name = "CUSTOMER_ID")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @JsonIgnore
     Customer customer;
 
-    @OneToMany(mappedBy = "purchase", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "purchase", cascade = CascadeType.ALL, orphanRemoval = true)
     @OnDelete(action = OnDeleteAction.CASCADE)
     List<Order> orderedProducts = new ArrayList<>();
 

@@ -27,7 +27,6 @@ public class ProductResponse {
     int stockQuantity;
     double averageRating;
     String imageUuid;
-    Category category;
-    //List<Comment> comments;
+    Long categoryId;
     Status status;
 }

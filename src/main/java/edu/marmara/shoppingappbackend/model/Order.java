@@ -31,6 +31,5 @@ public class Order extends AbstractEntity{
     @JoinColumn(name = "PURCHASE_ID")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @JsonIgnore
     Purchase purchase;
 }

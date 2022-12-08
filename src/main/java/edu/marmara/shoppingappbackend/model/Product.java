@@ -1,6 +1,5 @@
 package edu.marmara.shoppingappbackend.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -46,14 +45,13 @@ public class Product extends AbstractEntity implements Serializable {
 
     String imageUuid;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     List<Comment> comments = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "CATEGORY_ID")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @JsonIgnore
     Category category;
 
 }

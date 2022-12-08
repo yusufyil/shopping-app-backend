@@ -20,13 +20,13 @@ public class ImageController {
     }
 
     @Operation(summary = "this endpoint takes multipart file as image and saves it into database")
-    @PostMapping("/upload")
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<ImageResponse> uploadSingleFile(@RequestParam("file") MultipartFile file) {
         return ResponseEntity.ok(imageService.saveImage(file));
     }
 
     @Operation(summary = "this endpoint takes uuid and returns image data")
-    @GetMapping("/download/{uuid}")
+    @GetMapping("/{uuid}")
     public ResponseEntity<byte[]> getImage(@PathVariable String uuid) {
         Image image = imageService.getImage(uuid);
         return ResponseEntity.ok().contentType(MediaType.valueOf(image.getFileType())).body(image.getData());
