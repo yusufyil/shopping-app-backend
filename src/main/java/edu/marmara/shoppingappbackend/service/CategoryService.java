@@ -40,9 +40,9 @@ public class CategoryService {
         }
     }
 
-    public CategoryResponse getAllCategories() {
+    public List<CategoryResponse> getAllCategories() {
         List<Category> all = categoryRepository.findAll();
-        return MappingHelper.map(all, CategoryResponse.class);
+        return MappingHelper.mapList(all, CategoryResponse.class);
     }
 
     public CategoryResponse updateCategory(Long categoryId, CategoryRequest categoryRequest) {
