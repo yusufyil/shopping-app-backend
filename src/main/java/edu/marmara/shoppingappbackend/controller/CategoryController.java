@@ -7,6 +7,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/v1/category")
 public class CategoryController {
@@ -33,8 +35,8 @@ public class CategoryController {
 
     @Operation(summary = "this endpoint returns all categories.")
     @GetMapping
-    public ResponseEntity<CategoryResponse> getAllCategories() {
-        CategoryResponse categoryResponse = categoryService.getAllCategories();
+    public ResponseEntity<List<CategoryResponse>> getAllCategories() {
+        List<CategoryResponse> categoryResponse = categoryService.getAllCategories();
         return ResponseEntity.ok(categoryResponse);
     }
 
