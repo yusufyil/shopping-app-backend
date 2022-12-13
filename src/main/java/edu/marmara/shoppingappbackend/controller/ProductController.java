@@ -40,6 +40,13 @@ public class ProductController {
         return ResponseEntity.ok(allProducts);
     }
 
+    @Operation(summary = "this endpoint receives an category string and returns all products with given category.")
+    @GetMapping(path = "/category/{category}")
+    public ResponseEntity<List<ProductResponse>> getAllProductsByCategory(@PathVariable String category) {
+        List<ProductResponse> allProductsByCategory = productService.getAllProductsByCategory(category);
+        return ResponseEntity.ok(allProductsByCategory);
+    }
+
     @Operation(summary = "this receives product id and product request and updates related record.")
     @PutMapping(path = "/{productId}")
     public ResponseEntity<ProductResponse> updateProduct(@PathVariable Long productId, @RequestBody ProductRequest productRequest) {

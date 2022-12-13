@@ -106,4 +106,9 @@ public class ProductService {
         List<Product> all = productRepository.findAll();
         return MappingHelper.mapList(all, ProductResponse.class);
     }
+
+    public List<ProductResponse> getAllProductsByCategory(String category) {
+        List<Product> allBYCategoryName = productRepository.findByCategoryCategoryName(category);
+        return MappingHelper.mapList(allBYCategoryName, ProductResponse.class);
+    }
 }
