@@ -74,4 +74,11 @@ public class CustomerController {
         List<PurchaseResponse> purchaseResponses = customerService.getAllPurchases(customerId);
         return ResponseEntity.ok(purchaseResponses);
     }
+
+    @Operation(summary = "this endpoint returns true if given customer email and phone number both belongs one customer.")
+    @PostMapping(path = "/{email}/{phoneNumber}")
+    public ResponseEntity<Boolean> isCustomerExist(@PathVariable String email, @PathVariable String phoneNumber) {
+        Boolean isCustomerExist = customerService.isCustomerExist(email, phoneNumber);
+        return ResponseEntity.ok(isCustomerExist);
+    }
 }

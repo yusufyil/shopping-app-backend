@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 public class CustomerService {
@@ -42,12 +43,8 @@ public class CustomerService {
     }
 
     public CustomerResponse getCustomer(Long customerId) {
-        if (customerRepository.existsById(customerId)) {
-            Customer customer = customerRepository.findById(customerId).get();
-            return MappingHelper.map(customer, CustomerResponse.class);
-        } else {
-            throw new NoSuchElementException("No such element with given id: " + customerId);
-        }
+        Customer customer = customerRepository.findById(customerId).orElseThrow(() -> new NoSuchElementException("Customer not found"));
+        return MappingHelper.map(customer, CustomerResponse.class);
     }
 
     public CustomerResponse updateCustomer(Long customerId, CustomerRequest customerRequest) {
@@ -106,11 +103,7 @@ public class CustomerService {
     @Transactional
     public PurchaseResponse createPurchase(Long customerId, PurchaseRequest purchaseRequest) {
         Customer customer;
-        if (customerRepository.existsById(customerId)) {
-            customer = customerRepository.findById(customerId).get();
-        } else {
-            throw new NoSuchElementException("No such customer with given id: " + customerId);
-        }
+        customer = customerRepository.findActiveCustomerById(customerId).orElseThrow(() -> new NoSuchElementException("Customer not found"));
         if (purchaseRequest.getOrderedProducts() == null) {
             throw new IllegalArgumentException("This purchase has not any product.");
         } else {
@@ -123,7 +116,7 @@ public class CustomerService {
                 order.setId(null);
                 order.setProduct(productRepository.findById(order.getProduct().getId()).get());
                 int stockQuantity = order.getProduct().getStockQuantity();
-                if(stockQuantity < order.getQuantity()) {
+                if (stockQuantity < order.getQuantity()) {
                     throw new IllegalArgumentException("There is not enough stock for product: " + order.getProduct().getId());
                 } else {
                     order.getProduct().setStockQuantity(stockQuantity - order.getQuantity());
@@ -147,7 +140,7 @@ public class CustomerService {
     }
 
     public List<PurchaseResponse> getAllPurchases(Long customerId) {
-        List<Purchase> all = purchaseRepository.findAllByCustomerId(customerId);
+        List<Purchase> all = purchaseRepository.findAllActivePurchases();
         return MappingHelper.mapList(all, PurchaseResponse.class);
     }
 
@@ -158,7 +151,16 @@ public class CustomerService {
     }
 
     public List<CustomerResponse> getAllCustomers() {
-        List<Customer> all = customerRepository.findAll();
+        List<Customer> all = customerRepository.findAllActiveCustomers();
         return MappingHelper.mapList(all, CustomerResponse.class);
+    }
+
+    public Boolean isCustomerExist(String email, String phoneNumber) {
+        Optional<Customer> customerByEmail = customerRepository.findCustomerByEmail(email);
+        if (customerByEmail.isPresent() && customerByEmail.get().getPhoneNumber().equals(phoneNumber)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

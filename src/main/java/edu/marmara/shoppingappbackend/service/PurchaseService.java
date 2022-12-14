@@ -31,7 +31,7 @@ public class PurchaseService {
     }
 
     public PurchaseResponse getPurchase(Long id) {
-        Purchase purchase = purchaseRepository.findById(id).orElseThrow(() -> new RuntimeException("Purchase not found"));
+        Purchase purchase = purchaseRepository.findActivePurchaseById(id).orElseThrow(() -> new RuntimeException("Purchase not found"));
         return MappingHelper.map(purchase, PurchaseResponse.class);
     }
 
@@ -40,7 +40,7 @@ public class PurchaseService {
     }
 
     public List<PurchaseResponse> getAllPurchases() {
-        List<Purchase> purchases = purchaseRepository.findAll();
+        List<Purchase> purchases = purchaseRepository.findAllActivePurchases();
         return MappingHelper.mapList(purchases, PurchaseResponse.class);
     }
 

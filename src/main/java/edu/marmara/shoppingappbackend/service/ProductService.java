@@ -39,12 +39,9 @@ public class ProductService {
     }
 
     public ProductResponse getProduct(Long productId) {
-        if (productRepository.existsById(productId)) {
-            Product product = productRepository.findById(productId).get();
-            return MappingHelper.map(product, ProductResponse.class);
-        } else {
-            throw new NoSuchElementException("No such element with given id: " + productId);
-        }
+        productRepository.findActiveProductById(productId)
+                .orElseThrow(() -> new NoSuchElementException("No such element with given id: " + productId));
+        return null;
     }
 
     public ProductResponse updateProduct(Long productId, ProductRequest productRequest) {
@@ -89,9 +86,9 @@ public class ProductService {
     }
 
     public ProductResponse addCategoryToProduct(Long productId, Long categoryId) {
-        if(!productRepository.existsById(productId)) {
+        if (!productRepository.existsById(productId)) {
             throw new NoSuchElementException("No such element with given id: " + productId);
-        } else if(!categoryRepository.existsById(categoryId)) {
+        } else if (!categoryRepository.existsById(categoryId)) {
             throw new NoSuchElementException("No such element with given id: " + categoryId);
         } else {
             Product product = productRepository.findById(productId).get();
@@ -103,7 +100,7 @@ public class ProductService {
     }
 
     public List<ProductResponse> getAllProducts() {
-        List<Product> all = productRepository.findAll();
+        List<Product> all = productRepository.findAllActiveProducts();
         return MappingHelper.mapList(all, ProductResponse.class);
     }
 
