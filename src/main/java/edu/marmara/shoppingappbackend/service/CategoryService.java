@@ -10,6 +10,7 @@ import edu.marmara.shoppingappbackend.util.MappingHelper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class CategoryService {
@@ -32,17 +33,14 @@ public class CategoryService {
     }
 
     public CategoryResponse getCategory(Long categoryId) {
-        if (categoryRepository.existsById(categoryId)) {
-            Category category = categoryRepository.findById(categoryId).get();
-            return MappingHelper.map(category, CategoryResponse.class);
-        } else {
-            throw new RuntimeException("No such element with given id: " + categoryId);
-        }
+        Category category = categoryRepository.findActiveCategoryById(categoryId)
+                .orElseThrow(() -> new NoSuchElementException("No such element with given id: " + categoryId));
+        return MappingHelper.map(category, CategoryResponse.class);
     }
 
     public List<CategoryResponse> getAllCategories() {
-        List<Category> all = categoryRepository.findAll();
-        return MappingHelper.mapList(all, CategoryResponse.class);
+        List<Category> allActiveCategories = categoryRepository.findAllActiveCategories();
+        return MappingHelper.mapList(allActiveCategories, CategoryResponse.class);
     }
 
     public CategoryResponse updateCategory(Long categoryId, CategoryRequest categoryRequest) {

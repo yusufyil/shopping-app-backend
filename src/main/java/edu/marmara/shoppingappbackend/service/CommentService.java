@@ -27,12 +27,8 @@ public class CommentService {
     }
 
     public CommentResponse getComment(Long commentId) {
-        if (commentRepository.existsById(commentId)) {
-            Comment comment = commentRepository.findById(commentId).get();
-            return MappingHelper.map(comment, CommentResponse.class);
-        } else {
-            throw new NoSuchElementException("No such element with given id: " + commentId);
-        }
+        Comment comment = commentRepository.findActiveCommentById(commentId).orElseThrow(() -> new NoSuchElementException("Comment not found"));
+        return MappingHelper.map(comment, CommentResponse.class);
     }
 
 
