@@ -39,9 +39,9 @@ public class ProductService {
     }
 
     public ProductResponse getProduct(Long productId) {
-        productRepository.findActiveProductById(productId)
+        Product product = productRepository.findActiveProductById(productId)
                 .orElseThrow(() -> new NoSuchElementException("No such element with given id: " + productId));
-        return null;
+        return MappingHelper.map(product, ProductResponse.class);
     }
 
     public ProductResponse updateProduct(Long productId, ProductRequest productRequest) {
