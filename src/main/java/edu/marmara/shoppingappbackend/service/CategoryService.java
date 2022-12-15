@@ -2,13 +2,16 @@ package edu.marmara.shoppingappbackend.service;
 
 import edu.marmara.shoppingappbackend.dto.CategoryRequest;
 import edu.marmara.shoppingappbackend.dto.CategoryResponse;
+import edu.marmara.shoppingappbackend.dto.ProductResponse;
 import edu.marmara.shoppingappbackend.enums.Status;
 import edu.marmara.shoppingappbackend.model.Category;
+import edu.marmara.shoppingappbackend.model.Product;
 import edu.marmara.shoppingappbackend.repository.CategoryRepository;
 import edu.marmara.shoppingappbackend.repository.ImageRepository;
 import edu.marmara.shoppingappbackend.util.MappingHelper;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -35,11 +38,32 @@ public class CategoryService {
     public CategoryResponse getCategory(Long categoryId) {
         Category category = categoryRepository.findActiveCategoryById(categoryId)
                 .orElseThrow(() -> new NoSuchElementException("No such element with given id: " + categoryId));
+        List<Product> products = new ArrayList<>();
+        for (int index=0;index < category.getProducts().size();index++) {
+            Product product = category.getProducts().get(index);
+            if (product.getStatus().equals(Status.ACTIVE)) {
+                products.add(product);
+            }
+        }
+        category.setProducts(products);
         return MappingHelper.map(category, CategoryResponse.class);
     }
 
     public List<CategoryResponse> getAllCategories() {
         List<Category> allActiveCategories = categoryRepository.findAllActiveCategories();
+        List<Product> products = new ArrayList<>();
+        Category category;
+        for (int categoryIndex=0;categoryIndex < allActiveCategories.size();categoryIndex++) {
+            category = allActiveCategories.get(categoryIndex);
+            for (int productIndex=0;productIndex < category.getProducts().size();productIndex++) {
+                Product product = category.getProducts().get(productIndex);
+                if (product.getStatus().equals(Status.ACTIVE)) {
+                    products.add(product);
+                }
+            }
+            category.setProducts(products);
+            products = new ArrayList<>();
+        }
         return MappingHelper.mapList(allActiveCategories, CategoryResponse.class);
     }
 
