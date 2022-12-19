@@ -2,6 +2,7 @@ package edu.marmara.shoppingappbackend.controller;
 
 import edu.marmara.shoppingappbackend.dto.ProductRequest;
 import edu.marmara.shoppingappbackend.dto.ProductResponse;
+import edu.marmara.shoppingappbackend.model.ProductModel;
 import edu.marmara.shoppingappbackend.service.ProductService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.ResponseEntity;
@@ -38,6 +39,13 @@ public class ProductController {
     public ResponseEntity<List<ProductResponse>> getAllProducts() {
         List<ProductResponse> allProducts = productService.getAllProducts();
         return ResponseEntity.ok(allProducts);
+    }
+
+    @Operation(summary = "this endpoint returns all search results for given text.")
+    @GetMapping(path = "/search/{textToSearch}")
+    public ResponseEntity<List<ProductModel>> searchProducts(@PathVariable String textToSearch) {
+        List<ProductModel> searchResults = productService.searchProducts(textToSearch);
+        return ResponseEntity.ok(searchResults);
     }
 
     @Operation(summary = "this endpoint receives an category string and returns all products with given category.")
