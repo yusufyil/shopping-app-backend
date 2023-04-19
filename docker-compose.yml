@@ -1,0 +1,48 @@
+version: '3.1'
+
+services:
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+      - elasticsearch
+    networks:
+      - spring-backend
+
+  elasticsearch:
+    image: elasticsearch:7.17.8
+    ports:
+      - '9200:9200'
+      - '9300:9300'
+    depends_on:
+      - db
+    environment:
+      - discovery.type=single-node
+    networks:
+      - spring-backend
+
+
+  db:
+    image: postgres:15.2
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgre123
+    #expose:
+    #  - 5432
+    volumes:
+      #- /Users/yusufyildirim/Desktop/compose_sp:/docker-entrypoint-initdb.d/
+      - ./src/main/resources:/docker-entrypoint-initdb.d/
+    #ports:
+      #- "5434:5432"
+      #- "5435:5432"
+      #- "5433:5433"
+    networks:
+      - spring-backend
+
+volumes:
+  db:
+networks:
+  spring-backend:
+    driver: bridge
