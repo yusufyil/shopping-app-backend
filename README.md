@@ -9,7 +9,9 @@ I've used elasticsearch for fuzzy search and postgresql for permanent data stora
 
 ## Installation
 
-This docker-compose file is for ElasticSearch.
+You can use docker-compose file in order to run project.
+
+Please also note that if you want to use it with sample data you can email me for sql files. Github didn't allow to upload large files. But for clean start you can change ddl configuration to create-drop in application.properties file.
 
 ```bash
   docker-compose -f docker-compose up
